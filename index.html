@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><title>Message Notes | Hosted setup</title><link rel="icon" href="./assets/icon-32.png"><link rel="stylesheet" href="./styles.css"><script type="module" src="./setup.js"></script></head>
+<body><main class="doc">
+<div class="brand"><img src="./assets/icon-32.png" width="32" height="32" alt=""><h1>Message Notes</h1></div>
+<p>A note for each email. Hosted online; saved in your Microsoft 365 mailbox.</p>
+<div class="notice info"><strong>This is the installation page, not your mailbox.</strong> Real notes open from the Apps button on a message inside Outlook. This website does not ask for a Microsoft password.</div>
+<h2>1. Check your website</h2><p>Detected address:</p><pre id="siteAddress">Open this page at your published GitHub Pages address.</pre>
+<div id="setupStatus" class="notice info" role="status" aria-live="polite">Preparing website checks...</div>
+<noscript><div class="notice error">JavaScript is required to generate the installation manifest.</div></noscript>
+<h2>2. Download your installation file</h2>
+<p>This button replaces every hosting placeholder with the website address above. You do not need Node.js, a local web server, a local certificate, or manual XML editing.</p>
+<div class="actions"><button class="primary" type="button" id="downloadManifest" disabled>Download Outlook manifest</button><button class="secondary" type="button" id="checkSite">Check again</button></div>
+<p>File: <strong>Message-Notes-GitHub.xml</strong><br>Version: <span id="appVersion"></span><br>Add-in ID: <code id="appId"></code></p>
+<h2>3. Replace the earlier local installation</h2>
+<p>If you installed the original localhost version, its registered manifest must be replaced. Merely publishing this website does not update the mailbox registration.</p>
+<p><strong>Using the working PowerShell route:</strong> in your connected Exchange Online PowerShell session, run <code>Install-Hosted.ps1</code> from the extracted package. It asks for the target mailbox and the manifest you just downloaded. It checks the website before asking to replace the old Message Notes registration, then installs and enables this version only for that mailbox.</p>
+<p><strong>Using the browser:</strong> sign in as the intended mailbox user, then open <a href="https://aka.ms/olksideload" target="_blank" rel="noopener noreferrer">Outlook's add-in installation dialog</a>. In My add-ins &gt; Custom Addins, remove the earlier Message Notes entry if present. Choose Add a custom add-in &gt; Add from File and select the downloaded <strong>Message-Notes-GitHub.xml</strong>. Do not upload manifest.template.xml or the ZIP.</p>
+<p>The ID and note property name are unchanged. Preserve a copy of any important notes before changing installations. Organization-managed installations must be updated by the administrator rather than removed here.</p>
+<h2>4. Open the sidebar</h2>
+<p>Refresh Outlook on the web. Open a normal received message in your own mailbox, then choose <strong>Apps &gt; Message Notes</strong> on that message. Open new Outlook with the same mailbox, fully close and reopen it if necessary, then look on a received message there. Use Outlook's pin icon to keep the sidebar open.</p>
+<p>Save a non-sensitive test note, select another message, return, and check the note. Then reopen that same email in the other Outlook client. Confirm persistence before using important notes.</p>
+<p><strong>The current build is a message-reading add-in.</strong> It is not a compose-window app, standalone navigation app, or a delegated/shared-mailbox-enabled build. Start with an ordinary unencrypted message in the mailbox where you installed it.</p>
+<h2>Data and hosting</h2>
+<p>The website contains only the program files. The current note code saves with Outlook custom properties on the selected message, not to GitHub, browser local storage, or a notes database. GitHub still receives ordinary website requests. Public site visitors cannot retrieve mailbox notes simply by opening this page.</p>
+<p>GitHub Pages sites are generally public, including sites from private repositories unless a separately supported access-control feature is configured. Never publish messages, note exports, passwords, tokens, certificates, or tenant exports. Protect repository write access: changed add-in JavaScript runs with the add-in's permissions when users open it.</p>
+<p><a href="./taskpane.html?demo=1" target="_blank" rel="noopener noreferrer">View the sample-only sidebar</a> &middot; <a href="./support.html">Usage, limits, and troubleshooting</a></p>
+<h2>Official documentation</h2>
+<p><a href="https://learn.microsoft.com/en-us/office/dev/add-ins/outlook/sideload-outlook-add-ins-for-testing">Microsoft: sideloading and desktop availability</a><br><a href="https://learn.microsoft.com/en-us/office/dev/add-ins/outlook/metadata-for-an-outlook-add-in">Microsoft: mailbox item custom properties</a><br><a href="https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site">GitHub: publishing a Pages site</a></p>
+</main></body></html>
