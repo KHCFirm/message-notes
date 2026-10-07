@@ -1,0 +1,14 @@
+{
+  "passed": 7,
+  "failed": 0,
+  "checks": [
+    "Setup detects the mocked hosted base and enables download after simulated asset checks.",
+    "Download action creates correctly named XML with the same ID, ReadItem, pinning, and complete hosted asset paths.",
+    "Setup layout fits 320 pixels without horizontal overflow.",
+    "Query and fragment on the setup page do not leak into generated resource addresses.",
+    "A missing asset disables download and identifies the missing file.",
+    "A localhost setup address is rejected with an actionable error.",
+    "No browser JavaScript exceptions in the offline DOM tests."
+  ],
+  "scope": "Offline DOM tests in Chromium about:blank using in-memory production JS, a mocked address, and mocked fetch. Download bytes were inspected, not saved by a real browser download. No external hosting or Outlook integration verified."
+}

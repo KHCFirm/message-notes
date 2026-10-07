@@ -1,0 +1,194 @@
+
+> message-notes-github@1.0.1 test
+> node --test tests/*.test.mjs
+
+TAP version 13
+# Subtest: record validation and deletion format
+ok 1 - record validation and deletion format
+  ---
+  duration_ms: 3.102684
+  type: 'test'
+  ...
+# Subtest: 2,200-character limit does not truncate text
+ok 2 - 2,200-character limit does not truncate text
+  ---
+  duration_ms: 28.181182
+  type: 'test'
+  ...
+# Subtest: serialized storage counts escapes, Unicode, and newlines
+ok 3 - serialized storage counts escapes, Unicode, and newlines
+  ---
+  duration_ms: 0.195554
+  type: 'test'
+  ...
+# Subtest: same subject on two emails still stores two independent notes
+ok 4 - same subject on two emails still stores two independent notes
+  ---
+  duration_ms: 5.320393
+  type: 'test'
+  ...
+# Subtest: draft is restored after switching and is not silently saved
+ok 5 - draft is restored after switching and is not silently saved
+  ---
+  duration_ms: 0.628385
+  type: 'test'
+  ...
+# Subtest: clear text only removes the saved note after Save
+ok 6 - clear text only removes the saved note after Save
+  ---
+  duration_ms: 0.277403
+  type: 'test'
+  ...
+# Subtest: read errors disable editing and do not overwrite the mailbox
+ok 7 - read errors disable editing and do not overwrite the mailbox
+  ---
+  duration_ms: 0.682275
+  type: 'test'
+  ...
+# Subtest: save errors retain the draft and never claim success
+ok 8 - save errors retain the draft and never claim success
+  ---
+  duration_ms: 0.317213
+  type: 'test'
+  ...
+# Subtest: late load callbacks do not replace a newly selected email
+ok 9 - late load callbacks do not replace a newly selected email
+  ---
+  duration_ms: 3.012442
+  type: 'test'
+  ...
+# Subtest: selection changes before ItemChanged arrives block saving
+ok 10 - selection changes before ItemChanged arrives block saving
+  ---
+  duration_ms: 0.522967
+  type: 'test'
+  ...
+# Subtest: finishing a save for A never replaces the UI or note for B
+ok 11 - finishing a save for A never replaces the UI or note for B
+  ---
+  duration_ms: 17.992699
+  type: 'test'
+  ...
+# Subtest: returning to A waits for its pending save before loading it
+ok 12 - returning to A waits for its pending save before loading it
+  ---
+  duration_ms: 11.12849
+  type: 'test'
+  ...
+# Subtest: duplicate Save clicks start only one write
+ok 13 - duplicate Save clicks start only one write
+  ---
+  duration_ms: 4.031548
+  type: 'test'
+  ...
+# Subtest: concurrent edits are detected without overwriting the newer note
+ok 14 - concurrent edits are detected without overwriting the newer note
+  ---
+  duration_ms: 0.370626
+  type: 'test'
+  ...
+# Subtest: a conflict remains blocked across repeated message switches
+ok 15 - a conflict remains blocked across repeated message switches
+  ---
+  duration_ms: 0.202125
+  type: 'test'
+  ...
+# Subtest: null selection clears the editor but keeps unsaved drafts in memory
+ok 16 - null selection clears the editor but keeps unsaved drafts in memory
+  ---
+  duration_ms: 0.113705
+  type: 'test'
+  ...
+# Subtest: reloading with discard removes only the current email draft
+ok 17 - reloading with discard removes only the current email draft
+  ---
+  duration_ms: 0.097605
+  type: 'test'
+  ...
+# Subtest: a failed reload retains the unsaved text for copying
+ok 18 - a failed reload retains the unsaved text for copying
+  ---
+  duration_ms: 0.129357
+  type: 'test'
+  ...
+# Subtest: GitHub project URL replaces every placeholder and preserves add-in identity
+ok 19 - GitHub project URL replaces every placeholder and preserves add-in identity
+  ---
+  duration_ms: 3.41516
+  type: 'test'
+  ...
+# Subtest: custom HTTPS hosts and subpaths work
+ok 20 - custom HTTPS hosts and subpaths work
+  ---
+  duration_ms: 0.391031
+  type: 'test'
+  ...
+# Subtest: directory base is origin-safe and normalizes trailing slash
+ok 21 - directory base is origin-safe and normalizes trailing slash
+  ---
+  duration_ms: 0.962461
+  type: 'test'
+  ...
+# Subtest: rejects repository, raw, localhost, insecure, and authenticated URLs
+ok 22 - rejects repository, raw, localhost, insecure, and authenticated URLs
+  ---
+  duration_ms: 1.343103
+  type: 'test'
+  ...
+# Subtest: XML escapes allowed path characters
+ok 23 - XML escapes allowed path characters
+  ---
+  duration_ms: 0.226235
+  type: 'test'
+  ...
+# Subtest: rejects an incorrect template or changed identity
+ok 24 - rejects an incorrect template or changed identity
+  ---
+  duration_ms: 0.386128
+  type: 'test'
+  ...
+# Subtest: Office adapter writes and reads item custom properties, not the email body
+ok 25 - Office adapter writes and reads item custom properties, not the email body
+  ---
+  duration_ms: 3.501105
+  type: 'test'
+  ...
+# Subtest: Office adapter deletes only its own property
+ok 26 - Office adapter deletes only its own property
+  ---
+  duration_ms: 0.420575
+  type: 'test'
+  ...
+# Subtest: Office adapter preflight blocks concurrent changes
+ok 27 - Office adapter preflight blocks concurrent changes
+  ---
+  duration_ms: 0.599475
+  type: 'test'
+  ...
+# Subtest: Office adapter rejects an item that is no longer selected
+ok 28 - Office adapter rejects an item that is no longer selected
+  ---
+  duration_ms: 0.227513
+  type: 'test'
+  ...
+# Subtest: Office adapter rejects a switch during asynchronous property loading
+ok 29 - Office adapter rejects a switch during asynchronous property loading
+  ---
+  duration_ms: 0.346213
+  type: 'test'
+  ...
+# Subtest: Office adapter handles no selected message and registers ItemChanged
+ok 30 - Office adapter handles no selected message and registers ItemChanged
+  ---
+  duration_ms: 0.25925
+  type: 'test'
+  ...
+1..30
+# tests 30
+# suites 0
+# pass 30
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 177.503881
