@@ -6,7 +6,7 @@
   xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides"
   xsi:type="MailApp">
   <Id>7c6010d9-3b66-45f7-86ca-296e175b2b86</Id>
-  <Version>1.0.2.0</Version>
+  <Version>1.1.0.0</Version>
   <ProviderName>Internal Tools</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="Message Notes"/>

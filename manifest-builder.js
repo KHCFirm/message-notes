@@ -1,6 +1,6 @@
 // No credentials, mailbox access, or external service is used by this generator.
 export const ADDIN_ID = '7c6010d9-3b66-45f7-86ca-296e175b2b86';
-export const VERSION = '1.0.2.0';
+export const VERSION = '1.1.0.0';
 const escapeXml = value => value.replaceAll('&', '&amp;').replaceAll('"', '&quot;')
   .replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll("'", '&apos;');
 

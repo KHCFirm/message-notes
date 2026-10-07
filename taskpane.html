@@ -6,41 +6,61 @@
   <meta name="referrer" content="no-referrer">
   <title>Message Notes</title>
   <link rel="icon" href="./assets/icon-32.png">
-  <link rel="stylesheet" href="./styles.css">
-  <script type="module" src="./app.js"></script>
+  <link rel="stylesheet" href="./styles.css?v=1.1.0">
+  <script type="module" src="./app.js?v=1.1.0"></script>
 </head>
-<body>
+<body class="taskpane-body">
   <div id="demoTools" class="demo-tools" hidden>
     <strong>DEMO &middot; sample emails only</strong>
     <label for="demoItem">Switch sample email</label>
-    <select id="demoItem"><option value="0">1. Updated documents</option><option value="1">2. Friday meeting</option><option value="2">3. Same subject, different email</option><option value="-1">No message selected</option></select>
-    <small>Memory only. Refreshing clears all demo notes.</small>
+    <select id="demoItem">
+      <option value="0">1. Updated documents</option>
+      <option value="1">2. Friday meeting</option>
+      <option value="2">3. Same subject, different email</option>
+      <option value="-1">No message selected</option>
+    </select>
   </div>
-  <div class="app-shell">
-    <header class="app-header">
-      <div class="brand"><img src="./assets/icon-32.png" alt="" width="32" height="32"><div><h1>Message Notes</h1><p>Keep the context with the email.</p></div></div>
-      <a class="help" href="./support.html" target="_blank" rel="noopener noreferrer" aria-label="Open Message Notes help">?</a>
-    </header>
-    <main>
-      <div class="pin-tip"><span aria-hidden="true">&#128204;</span><span>Use Outlook's <strong>pin</strong> to keep this sidebar open.</span></div>
-      <section class="message-card" aria-label="Selected email">
-        <span class="eyebrow">SELECTED EMAIL</span>
-        <h2 id="subject">Connecting to Outlook...</h2>
-        <p id="sender">Your note will be linked to this message.</p>
-      </section>
-      <div id="fatal" class="notice error" role="alert" hidden></div>
-      <div id="draftNotice" class="notice warning" role="status" hidden></div>
-      <div class="editor-heading"><label for="note">Your note</label><span id="status" class="status" role="status" aria-live="polite">Loading</span></div>
-      <textarea id="note" disabled aria-describedby="counter saveHint" placeholder="Add a reminder, call summary, or next step..." spellcheck="true"></textarea>
-      <div class="editor-meta"><span id="lastSaved">No saved note</span><span id="counter">0 / 2,200</span></div>
-      <div id="error" class="notice error" role="alert" hidden></div>
-      <div id="notice" class="notice info" role="status" hidden></div>
-      <div class="actions"><button id="save" class="primary" type="button" disabled>Save note</button><button id="clear" class="secondary" type="button" disabled>Clear text</button></div>
-      <div class="utility-actions"><button id="copy" type="button" disabled>Copy note</button><button id="reload" type="button" disabled>Reload</button><span>Ctrl+S to save</span></div>
-      <div id="confirmReload" class="notice warning" hidden><p>Discard your unsaved changes for this email and load the mailbox version?</p><div class="actions"><button id="discard" class="secondary" type="button">Discard &amp; reload</button><button id="cancelDiscard" class="secondary" type="button">Keep editing</button></div></div>
-      <p id="saveHint" class="save-hint">Save before closing this pane. Unsaved drafts stay only in this open pane.</p>
-    </main>
-    <footer><span class="storage-dot" aria-hidden="true"></span><span id="storageLabel">Saved on the mailbox item, not in the email body.</span></footer>
-  </div>
+
+  <main class="note-app" aria-label="Message Notes">
+    <div id="fatal" class="notice error" role="alert" hidden></div>
+
+    <div class="format-toolbar" role="toolbar" aria-label="Note formatting">
+      <button class="format-button" id="bold" type="button" title="Bold (Ctrl+B)" aria-label="Bold"><strong>B</strong></button>
+      <button class="format-button italic-button" id="italic" type="button" title="Italic (Ctrl+I)" aria-label="Italic">I</button>
+      <button class="format-button underline-button" id="underline" type="button" title="Underline (Ctrl+U)" aria-label="Underline">U</button>
+      <span class="toolbar-divider" aria-hidden="true"></span>
+      <label class="sr-only" for="fontSize">Font size</label>
+      <select id="fontSize" class="font-size" title="Font size" aria-label="Font size">
+        <option value="12">12</option>
+        <option value="14" selected>14</option>
+        <option value="16">16</option>
+        <option value="18">18</option>
+        <option value="20">20</option>
+        <option value="24">24</option>
+      </select>
+      <label class="color-control" title="Text color" aria-label="Text color">
+        <span class="color-a" aria-hidden="true">A</span>
+        <input id="textColor" type="color" value="#c50f1f" aria-label="Text color">
+      </label>
+    </div>
+
+    <div
+      id="note"
+      class="note-editor"
+      contenteditable="false"
+      role="textbox"
+      aria-multiline="true"
+      aria-label="Note for this email"
+      data-placeholder="Add a note..."
+      spellcheck="true"></div>
+
+    <div id="error" class="notice error compact-notice" role="alert" hidden></div>
+    <button id="recover" class="text-action" type="button" hidden>Reload saved note</button>
+
+    <div class="save-area">
+      <button id="save" class="primary save-button" type="button" disabled>Save</button>
+      <span id="status" class="save-status" role="status" aria-live="polite">Loading…</span>
+    </div>
+  </main>
 </body>
 </html>
