@@ -136,6 +136,46 @@ function applyCommand(command, value = null) {
   editorChanged();
 }
 
+// Outlook's embedded browser can drop the live text selection when the native
+// color picker opens. Apply color to the Range we saved before the picker took
+// focus instead of relying on execCommand('foreColor') to find that selection.
+function applyTextColor(value) {
+  const color = allowedColor(value);
+  const editor = $('note');
+  if (!color || editor.getAttribute('contenteditable') !== 'true') return;
+
+  editor.focus({ preventScroll: true });
+  if (!restoreSelection()) return;
+
+  const selection = window.getSelection();
+  if (!selection || selection.rangeCount === 0) return;
+  const range = selection.getRangeAt(0);
+  if (!selectionIsInEditor(range)) return;
+
+  if (range.collapsed) {
+    // For a caret-only selection, use the browser's typing-state command so
+    // subsequently typed text adopts the chosen color.
+    try { document.execCommand('styleWithCSS', false, true); } catch {}
+    document.execCommand('foreColor', false, color);
+  } else {
+    // Range.extractContents works even when the selection crosses nested bold,
+    // italic, underline, or size spans. Re-select the result so another color
+    // can be chosen without selecting the text again.
+    const span = document.createElement('span');
+    span.style.color = color;
+    span.append(range.extractContents());
+    range.insertNode(span);
+
+    const coloredRange = document.createRange();
+    coloredRange.selectNodeContents(span);
+    selection.removeAllRanges();
+    selection.addRange(coloredRange);
+    savedRange = coloredRange.cloneRange();
+  }
+
+  editorChanged();
+}
+
 function applyFontSize(px) {
   const editor = $('note');
   if (editor.getAttribute('contenteditable') !== 'true') return;
@@ -234,11 +274,21 @@ for (const [id, command] of [['bold', 'bold'], ['italic', 'italic'], ['underline
 
 $('fontSize').addEventListener('pointerdown', rememberSelection);
 $('fontSize').addEventListener('change', event => applyFontSize(event.target.value));
+let colorApplyTimer = null;
+function queueTextColor(value, immediate = false) {
+  document.querySelector('.color-control')?.style.setProperty('--chosen-color', value);
+  clearTimeout(colorApplyTimer);
+  colorApplyTimer = setTimeout(() => {
+    colorApplyTimer = null;
+    applyTextColor(value);
+  }, immediate ? 0 : 80);
+}
+
 $('textColor').addEventListener('pointerdown', rememberSelection);
-$('textColor').addEventListener('change', event => {
-  document.querySelector('.color-control')?.style.setProperty('--chosen-color', event.target.value);
-  applyCommand('foreColor', event.target.value);
-});
+// Chromium/WebView variants differ on whether a native color picker emits
+// `input`, `change`, or both. Listen to both and debounce duplicate events.
+$('textColor').addEventListener('input', event => queueTextColor(event.target.value));
+$('textColor').addEventListener('change', event => queueTextColor(event.target.value, true));
 $('save').addEventListener('click', saveNow);
 $('recover').addEventListener('click', () => controller?.reloadDiscardingDraft());
 
